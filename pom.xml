@@ -57,6 +57,12 @@
                 <version>${springdoc-openapi-starter.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <optional>true</optional>
+            </dependency>
+
             <!--    GRPC dependencies management        -->
             <dependency>
                 <groupId>net.devh</groupId>
