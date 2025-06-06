@@ -1,6 +1,7 @@
 package ru.yandex.practicum.telemetry.collector.service.handler.sensor;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import ru.yandex.practicum.grpc.telemetry.event.SensorEventProto;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
@@ -10,6 +11,7 @@ import ru.yandex.practicum.telemetry.collector.service.handler.SensorEventHandle
 
 import java.time.Instant;
 
+@Slf4j
 @RequiredArgsConstructor
 public abstract class BaseSensorEventHandler<T extends SpecificRecordBase> implements SensorEventHandler {
     protected final KafkaEventProducer producer;
@@ -30,6 +32,8 @@ public abstract class BaseSensorEventHandler<T extends SpecificRecordBase> imple
                 .setTimestamp(Instant.ofEpochSecond(event.getTimestamp().getSeconds(), event.getTimestamp().getNanos()))
                 .setPayload(payload)
                 .build();
+
+        log.info("Собщение датчика: {}", eventAvro);
 
         producer.sendEvent(CollectorTopics.SENSOR_EVENT_TOPIC, eventAvro);
     }
