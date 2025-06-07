@@ -1,6 +1,6 @@
-package service;
+package ru.yandex.practicum.telemetry.aggregator.service;
 
-import constants.AggregatorTopics;
+import ru.yandex.practicum.telemetry.aggregator.constants.AggregatorTopics;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.*;
