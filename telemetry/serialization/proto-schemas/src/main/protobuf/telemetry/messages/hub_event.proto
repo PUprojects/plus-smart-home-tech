@@ -9,11 +9,11 @@ import "google/protobuf/timestamp.proto";
 
 enum DeviceTypeProto {
     // Варианты значений enum DeviceTypeProto
-    DEVICE_TYPE_PROTO_MOTION_SENSOR = 0;      // датчик движения
-    DEVICE_TYPE_PROTO_TEMPERATURE_SENSOR = 1; // датчик температуры
-    DEVICE_TYPE_PROTO_LIGHT_SENSOR = 2;       // датчик освещённости
-    DEVICE_TYPE_PROTO_CLIMATE_SENSOR = 3;     // датчик контроля климата
-    DEVICE_TYPE_PROTO_SWITCH_SENSOR = 4;      // переключатель
+    MOTION_SENSOR = 0;      // датчик движения
+    TEMPERATURE_SENSOR = 1; // датчик температуры
+    LIGHT_SENSOR = 2;       // датчик освещённости
+    CLIMATE_SENSOR = 3;     // датчик контроля климата
+    SWITCH_SENSOR = 4;      // переключатель
 }
 
 message DeviceAddedEventProto {
@@ -26,18 +26,18 @@ message DeviceRemovedEventProto {
 }
 
 enum ConditionTypeProto {
-    CONDITION_TYPE_PROTO_MOTION = 0;
-    CONDITION_TYPE_PROTO_LUMINOSITY = 1;
-    CONDITION_TYPE_PROTO_SWITCH = 2;
-    CONDITION_TYPE_PROTO_TEMPERATURE = 3;
-    CONDITION_TYPE_PROTO_CO_2LEVEL = 4;
-    CONDITION_TYPE_PROTO_HUMIDITY = 5;
+    MOTION = 0;
+    LUMINOSITY = 1;
+    SWITCH = 2;
+    TEMPERATURE = 3;
+    CO2LEVEL = 4;
+    HUMIDITY = 5;
 }
 
 enum ConditionOperationProto {
-    CONDITION_OPERATION_PROTO_EQUALS = 0;
-    CONDITION_OPERATION_PROTO_GREATER_THAN = 1;
-    CONDITION_OPERATION_PROTO_LOWER_THAN = 2;
+    EQUALS = 0;
+    GREATER_THAN = 1;
+    LOWER_THAN = 2;
 }
 
 message ScenarioConditionProto {
@@ -51,10 +51,10 @@ message ScenarioConditionProto {
 }
 
 enum ActionTypeProto {
-    ACTION_TYPE_PROTO_ACTIVATE = 0;
-    ACTION_TYPE_PROTO_DEACTIVATE = 1;
-    ACTION_TYPE_PROTO_INVERSE = 2;
-    ACTION_TYPE_PROTO_SET_VALUE = 3;
+    ACTIVATE = 0;
+    DEACTIVATE = 1;
+    INVERSE = 2;
+    SET_VALUE = 3;
 }
 
 message DeviceActionProto {
