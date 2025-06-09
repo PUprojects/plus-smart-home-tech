@@ -1,4 +1,4 @@
-package constants;
+package ru.yandex.practicum.telemetry.aggregator.constants;
 
 public class AggregatorTopics {
     public static final String SENSOR_EVENT_TOPIC = "telemetry.sensors.v1";
