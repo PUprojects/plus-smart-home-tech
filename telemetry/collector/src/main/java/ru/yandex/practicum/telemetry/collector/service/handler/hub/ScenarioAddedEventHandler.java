@@ -1,10 +1,10 @@
 package ru.yandex.practicum.telemetry.collector.service.handler.hub;
 
 import org.springframework.stereotype.Component;
+import ru.yandex.practicum.grpc.telemetry.event.HubEventProto;
+import ru.yandex.practicum.grpc.telemetry.event.ScenarioAddedEventProto;
+import ru.yandex.practicum.grpc.telemetry.event.ScenarioConditionProto;
 import ru.yandex.practicum.kafka.telemetry.event.*;
-import ru.yandex.practicum.telemetry.collector.model.events.hub.HubEvent;
-import ru.yandex.practicum.telemetry.collector.model.events.hub.HubEventType;
-import ru.yandex.practicum.telemetry.collector.model.events.hub.ScenarioAddedEvent;
 import ru.yandex.practicum.telemetry.collector.service.KafkaEventProducer;
 
 import java.util.List;
@@ -16,21 +16,21 @@ public class ScenarioAddedEventHandler extends BaseHubEventHandler<ScenarioAdded
     }
 
     @Override
-    protected ScenarioAddedEventAvro mapToAvro(HubEvent event) {
-        ScenarioAddedEvent addedEvent = (ScenarioAddedEvent) event;
+    protected ScenarioAddedEventAvro mapToAvro(HubEventProto event) {
+        ScenarioAddedEventProto addedEvent = event.getScenarioAdded();
 
-
-        List<DeviceActionAvro> actions = addedEvent.getActions().stream()
+        List<DeviceActionAvro> actions = addedEvent.getActionList().stream()
                 .map(action -> DeviceActionAvro.newBuilder()
                         .setSensorId(action.getSensorId())
                         .setType(ActionTypeAvro.valueOf(action.getType().toString()))
                         .build())
                 .toList();
 
-        List<ScenarioConditionAvro> conditions = addedEvent.getConditions().stream()
+        List<ScenarioConditionAvro> conditions = addedEvent.getConditionList().stream()
                 .map(condition -> ScenarioConditionAvro.newBuilder()
                         .setSensorId(condition.getSensorId())
-                        .setValue(condition.getValue())
+                        .setValue(condition.getValueCase().equals(ScenarioConditionProto.ValueCase.BOOL_VALUE) ?
+                                condition.getBoolValue() : condition.getIntValue())
                         .setType(ConditionTypeAvro.valueOf(condition.getType().toString()))
                         .setOperation(ConditionOperationAvro.valueOf(condition.getOperation().toString()))
                         .build())
@@ -44,7 +44,7 @@ public class ScenarioAddedEventHandler extends BaseHubEventHandler<ScenarioAdded
     }
 
     @Override
-    public HubEventType getMessageType() {
-        return HubEventType.SCENARIO_ADDED;
+    public HubEventProto.PayloadCase getPayload() {
+        return HubEventProto.PayloadCase.SCENARIO_ADDED;
     }
 }
