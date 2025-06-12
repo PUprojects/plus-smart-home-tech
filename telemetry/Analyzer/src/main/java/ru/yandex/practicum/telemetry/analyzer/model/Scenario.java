@@ -21,7 +21,7 @@ public class Scenario {
 
     String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @MapKeyColumn(
             table = "scenario_conditions",
             name = "sensor_id")
@@ -31,12 +31,12 @@ public class Scenario {
             inverseJoinColumns = @JoinColumn(name = "condition_id"))
     Map<String, Condition> conditions = new HashMap<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @MapKeyColumn(
-            table = "scenario_conditions",
+            table = "scenario_actions",
             name = "sensor_id")
     @JoinTable(
-            name = "scenario_conditions",
+            name = "scenario_actions",
             joinColumns = @JoinColumn(name = "scenario_id"),
             inverseJoinColumns = @JoinColumn(name = "action_id"))
     Map<String, Action> actions = new HashMap<>();

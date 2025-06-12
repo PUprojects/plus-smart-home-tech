@@ -47,15 +47,18 @@ public class HubEventProcessor extends BaseProcessor {
     }
 
     private void addDevice(DeviceAddedEventAvro deviceAddedEvent, String hubId) {
+
         Sensor sensor = new Sensor();
         sensor.setId(deviceAddedEvent.getId());
         sensor.setHubId(hubId);
 
         sensorRepository.save(sensor);
+        log.info("Добавлено устройство {} в хаб {}", deviceAddedEvent.getId(), hubId);
     }
 
     private void removeDevice(DeviceRemovedEventAvro deviceRemovedEvent) {
         sensorRepository.findById(deviceRemovedEvent.getId()).ifPresent(sensorRepository::delete);
+        log.info("Удалено устройство {}", deviceRemovedEvent.getId());
     }
 
     @Transactional
@@ -69,28 +72,32 @@ public class HubEventProcessor extends BaseProcessor {
             condition.setType(scenarioCondition.getType().toString());
             condition.setOperation(scenarioCondition.getOperation().toString());
             switch (scenarioCondition.getValue()) {
-                case null -> condition.setValue(0);
-                case Integer i -> condition.setValue(i);
-                case Boolean b -> condition.setValue(b ? 1 : 0);
+                case null -> condition.setVal(0);
+                case Integer i -> condition.setVal(i);
+                case Boolean b -> condition.setVal(b ? 1 : 0);
                 default -> throw new IllegalStateException("Unexpected value: " + scenarioCondition.getValue());
             }
             condition = conditionRepository.save(condition);
             scenario.getConditions().put(scenarioCondition.getSensorId(), condition);
+            log.info("Добавлено условие {}", condition);
         });
 
         scenarioAddedEvent.getActions().forEach(deviceAction -> {
             Action action = new Action();
             action.setType(deviceAction.getType().toString());
-            action.setValue(deviceAction.getValue());
+            action.setVal(deviceAction.getValue());
             action = actionRepository.save(action);
             scenario.getActions().put(deviceAction.getSensorId(), action);
+            log.info("Добавлено действие {}", action);
         });
 
         scenarioRepository.save(scenario);
+        log.info("Добавлен сценарий {} для хаба {}", scenarioAddedEvent.getName(), hubId);
     }
 
     private void removeScenario(ScenarioRemovedEventAvro scenarioRemovedEvent, String hubId) {
         scenarioRepository.findByHubIdAndName(scenarioRemovedEvent.getName(), hubId)
                 .ifPresent(scenarioRepository::delete);
+        log.info("Удален сценарий {}", scenarioRemovedEvent.getName());
     }
 }

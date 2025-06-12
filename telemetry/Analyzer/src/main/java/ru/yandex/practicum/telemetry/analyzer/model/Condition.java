@@ -18,5 +18,5 @@ public class Condition {
 
     String operation;
 
-    Integer value;
+    Integer val;
 }

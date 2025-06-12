@@ -16,5 +16,5 @@ public class Action {
 
     String type;
 
-    Integer value;
+    Integer val;
 }
