@@ -11,5 +11,17 @@
 
     <artifactId>commerce</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>shopping-cart</module>
+        <module>warehouse</module>
+        <module>interaction-api</module>
+        <module>shopping-store</module>
+    </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
+    </dependencies>
 </project>
