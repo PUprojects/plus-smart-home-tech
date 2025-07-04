@@ -28,7 +28,7 @@ public class ShoppingStoreController implements ShoppingStoreOperations {
         log.info("Запрос продуктов категории {}, страница {}", category, pageable);
         Page<ProductDto> result = shoppingStoreService.getProducts(category, pageable);
         try {
-            //            log.info("Sort direction: {}", result.getPageable().getSort().getOrderFor("productName").getDirection());
+            log.info("Sort direction: {}", result.getPageable().getSort().getOrderFor("productName").getDirection());
             log.info("Result is {}", tmpMapper.writeValueAsString(result));
         } catch (Exception e)
         {
