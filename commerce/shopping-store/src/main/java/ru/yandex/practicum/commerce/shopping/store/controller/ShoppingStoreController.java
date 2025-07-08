@@ -16,7 +16,7 @@ import ru.yandex.practicum.commerce.shopping.store.service.ShoppingStoreService;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/shopping-store")
+@RequestMapping("")
 @RequiredArgsConstructor
 @Slf4j
 public class ShoppingStoreController implements ShoppingStoreOperations {
@@ -26,15 +26,7 @@ public class ShoppingStoreController implements ShoppingStoreOperations {
     @Override
     public Page<ProductDto> getProducts(String category, Pageable pageable) {
         log.info("Запрос продуктов категории {}, страница {}", category, pageable);
-        Page<ProductDto> result = shoppingStoreService.getProducts(category, pageable);
-        try {
-            log.info("Sort direction: {}", result.getPageable().getSort().getOrderFor("productName").getDirection());
-            log.info("Result is {}", tmpMapper.writeValueAsString(result));
-        } catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
-        return result;
+        return shoppingStoreService.getProducts(category, pageable);
     }
 
     @Override

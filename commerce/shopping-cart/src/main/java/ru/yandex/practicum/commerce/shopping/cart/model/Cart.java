@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -16,5 +18,11 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.UUID)
     UUID shoppingCartId;
 
+    String username;
 
+    @ElementCollection
+    @CollectionTable(name="cart_products", joinColumns = @JoinColumn(name = "cart_id"))
+    @MapKeyColumn(name = "product_id")
+    @Column(name = "quantity")
+    Map<UUID, Long> products = new HashMap<>();
 }

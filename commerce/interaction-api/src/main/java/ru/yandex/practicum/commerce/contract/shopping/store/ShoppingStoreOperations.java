@@ -11,21 +11,21 @@ import java.util.UUID;
 
 public interface ShoppingStoreOperations {
 
-    @GetMapping
+    @GetMapping("/api/v1/shopping-store")
     Page<ProductDto> getProducts(String category, @PageableDefault(sort = {"productName"}) Pageable pageable);
 
-    @PutMapping
+    @PutMapping("/api/v1/shopping-store")
     ProductDto createNewProduct(@RequestBody ProductDto newProduct);
 
-    @PostMapping
+    @PostMapping("/api/v1/shopping-store")
     ProductDto updateProduct(@RequestBody ProductDto updatedProduct);
 
-    @PostMapping("/removeProductFromStore")
+    @PostMapping("/api/v1/shopping-store/removeProductFromStore")
     boolean removeProductFromStore(@RequestBody UUID productId);
 
-    @PostMapping("/quantityState")
+    @PostMapping("/api/v1/shopping-store/quantityState")
     boolean setProductQuantityState(@RequestParam UUID productId, @RequestParam String quantityState);
 
-    @GetMapping("/{productId}")
+    @GetMapping("/api/v1/shopping-store/{productId}")
     ProductDto getProduct(@PathVariable UUID productId);
 }

@@ -1,9 +1,6 @@
 package ru.yandex.practicum.commerce.contract.warehouse;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.commerce.dto.warehouse.AddressDto;
 import ru.yandex.practicum.commerce.dto.warehouse.BookedProductsDto;
 import ru.yandex.practicum.commerce.dto.shopping.cart.ShoppingCartDto;
@@ -11,15 +8,15 @@ import ru.yandex.practicum.commerce.request.warehouse.AddProductToWarehouseReque
 import ru.yandex.practicum.commerce.request.warehouse.NewProductInWarehouseRequest;
 
 public interface WarehouseOperations {
-    @PutMapping
+    @PutMapping("/api/v1/warehouse")
     void addProduct (@RequestBody NewProductInWarehouseRequest request);
 
-    @PostMapping("/check")
+    @PostMapping("/api/v1/warehouse/check")
     BookedProductsDto checkProductCount(@RequestBody ShoppingCartDto shoppingCartDto);
 
-    @PostMapping("/add")
+    @PostMapping("/api/v1/warehouse/add")
     void addProductQuantity(@RequestBody AddProductToWarehouseRequest request);
 
-    @GetMapping("/address")
+    @GetMapping("/api/v1/warehouse/address")
     AddressDto getWarehouseAddress();
 }
