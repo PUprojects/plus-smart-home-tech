@@ -29,13 +29,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public ShoppingCartDto addToCart(Map<UUID, Long> products, String username) {
-        Cart cart = new Cart(); //getCartByUsername(username);
-        cart.setUsername(username);
+        Cart cart = cartRepository.findByUsername(username)
+                .orElseGet(() -> {
+                   Cart newCart = new Cart();
+                   newCart.setUsername(username);
+                   return newCart;
+                });
         products.forEach((productId, quantity) -> cart.getProducts().put(productId, quantity));
-        ShoppingCartDto shoppingCartDto = cartMapper.toShoppingCartDto(cart);
-        warehouseClient.checkProductCount(shoppingCartDto);
+        warehouseClient.checkProductCount(cartMapper.toShoppingCartDto(cart));
         cartRepository.save(cart);
-        return shoppingCartDto;
+        return cartMapper.toShoppingCartDto(cart);
     }
 
     @Override
