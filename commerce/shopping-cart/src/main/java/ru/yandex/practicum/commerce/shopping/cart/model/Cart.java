@@ -1,8 +1,7 @@
 package ru.yandex.practicum.commerce.shopping.cart.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.HashMap;
@@ -11,7 +10,9 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "carts")
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Cart {
     @Id
