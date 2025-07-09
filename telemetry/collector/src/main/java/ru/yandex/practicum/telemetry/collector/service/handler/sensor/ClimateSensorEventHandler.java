@@ -15,13 +15,11 @@ public class ClimateSensorEventHandler extends BaseSensorEventHandler<ClimateSen
 
     @Override
     protected ClimateSensorAvro mapToAvro(SensorEventProto event) {
-//        log.info("Сообщение {}", event.getClimateSensorEvent());
         ClimateSensorAvro result = ClimateSensorAvro.newBuilder()
                 .setCo2Level(event.getClimateSensorEvent().getCo2Level())
                 .setHumidity(event.getClimateSensorEvent().getHumidity())
                 .setTemperatureC(event.getClimateSensorEvent().getTemperatureC())
                 .build();
-//        log.info("Преобразовано в {}", result);
         return result;
     }
     @Override

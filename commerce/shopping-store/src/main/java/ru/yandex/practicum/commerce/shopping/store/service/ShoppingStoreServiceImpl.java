@@ -53,7 +53,6 @@ public class ShoppingStoreServiceImpl implements ShoppingStoreService {
 
         product.setProductState(ProductState.DEACTIVATE);
         productRepository.save(product);
-//                });
         return true;
     }
 

@@ -12,7 +12,6 @@ import ru.yandex.practicum.commerce.request.warehouse.NewProductInWarehouseReque
 import ru.yandex.practicum.commerce.warehouse.service.WarehouseService;
 
 @RestController
-//@RequestMapping("/api/v1/warehouse")
 @RequiredArgsConstructor
 @Slf4j
 public class WarehouseController implements WarehouseOperations {

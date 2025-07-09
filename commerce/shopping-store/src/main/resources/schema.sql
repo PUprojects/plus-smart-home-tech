@@ -6,6 +6,6 @@ CREATE TABLE IF NOT EXISTS products (
     quantity_state VARCHAR,
     product_state VARCHAR,
     product_category VARCHAR,
-    price REAL
+    price NUMERIC
 );
 

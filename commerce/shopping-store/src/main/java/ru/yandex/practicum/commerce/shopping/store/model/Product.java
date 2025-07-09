@@ -8,6 +8,7 @@ import ru.yandex.practicum.commerce.dto.shopping.store.ProductCategory;
 import ru.yandex.practicum.commerce.dto.shopping.store.ProductState;
 import ru.yandex.practicum.commerce.dto.shopping.store.QuantityState;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -34,5 +35,5 @@ public class Product {
     @Enumerated(EnumType.STRING)
     ProductCategory productCategory;
 
-    float price;
+    BigDecimal price;
 }
