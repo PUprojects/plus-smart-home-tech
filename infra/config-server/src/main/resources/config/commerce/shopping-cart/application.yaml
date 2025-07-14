@@ -1,0 +1,18 @@
+server:
+  port: 0
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/commerce-shopping-cart
+    username: sa
+    password: password
+  sql:
+    init:
+      mode: always
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      slidingWindowSize: 50
+      failureRateThreshold: 50

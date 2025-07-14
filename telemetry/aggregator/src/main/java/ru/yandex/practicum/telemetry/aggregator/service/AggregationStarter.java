@@ -25,8 +25,6 @@ public class AggregationStarter {
     private final Producer<String, SpecificRecordBase> producer;
     private final Consumer<String, SpecificRecordBase> consumer;
 
-    //private static final Map<TopicPartition, OffsetAndMetadata> currentOffsets = new HashMap<>();
-
     private final Map<String, SensorsSnapshotAvro> snapshots = new HashMap<>();
 
     public  AggregationStarter() {
