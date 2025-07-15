@@ -15,7 +15,7 @@ public class MyFiegnErrorDecoder implements ErrorDecoder {
         }
 
         if (response.status() == 500) {
-            return new InternalServerErrorException("Ошибкасервера при вызове метода " + methodKey);
+            return new InternalServerErrorException("Ошибка сервера при вызове метода " + methodKey);
         }
 
         return defaultDecoder.decode(methodKey, response);
