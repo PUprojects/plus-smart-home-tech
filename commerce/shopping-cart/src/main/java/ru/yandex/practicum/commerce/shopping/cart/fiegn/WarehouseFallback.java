@@ -4,8 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import ru.yandex.practicum.commerce.dto.shopping.cart.ShoppingCartDto;
 import ru.yandex.practicum.commerce.dto.warehouse.AddressDto;
 import ru.yandex.practicum.commerce.dto.warehouse.BookedProductsDto;
+import ru.yandex.practicum.commerce.dto.warehouse.ShippedToDeliveryRequest;
 import ru.yandex.practicum.commerce.request.warehouse.AddProductToWarehouseRequest;
+import ru.yandex.practicum.commerce.request.warehouse.AssemblyProductsForOrderRequest;
 import ru.yandex.practicum.commerce.request.warehouse.NewProductInWarehouseRequest;
+
+import java.util.Map;
+import java.util.UUID;
 
 @Slf4j
 public class WarehouseFallback implements WarehouseClient {
@@ -30,5 +35,21 @@ public class WarehouseFallback implements WarehouseClient {
     public AddressDto getWarehouseAddress() {
         log.info("Вызов заглушки getWarehouseAddress");
         return new AddressDto("NOT_FOUND", "NOT_FOUND", "NOT_FOUND", "NOT_FOUND", "NOT_FOUND");
+    }
+
+    @Override
+    public void shipToDelivery(ShippedToDeliveryRequest request) {
+        log.info("Вызов заглушки shipToDelivery");
+    }
+
+    @Override
+    public void returnToWarehouse(Map<UUID, Long> products) {
+        log.info("Вызов заглушки returnToWarehouse");
+    }
+
+    @Override
+    public BookedProductsDto assemblyOrder(AssemblyProductsForOrderRequest request) {
+        log.info("Вызов заглушки assemblyOrder");
+        return new BookedProductsDto(0.0, 0.0, false);
     }
 }
