@@ -1,0 +1,53 @@
+package ru.yandex.practicum.commerce.contract.order;
+
+import jakarta.validation.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import ru.yandex.practicum.commerce.dto.order.OrderDto;
+import ru.yandex.practicum.commerce.request.order.ProductReturnRequest;
+
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+@Validated
+public interface OrderOperations {
+    @GetMapping("/api/v1/order")
+    List<OrderDto> getOrders (@RequestParam @NotEmpty String username);
+
+    @PutMapping("/api/v1/order")
+    OrderDto createOrder(@RequestParam @NotEmpty String username, @RequestBody OrderDto newOrder);
+
+    @PostMapping("/api/v1/order/return")
+    OrderDto returnProducts(@RequestBody ProductReturnRequest request);
+
+    @PostMapping("/api/v1/order/payment")
+    OrderDto payment(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/payment/failed")
+    OrderDto paymentFailed(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/delivery")
+    OrderDto delivery(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/delivery/failed")
+    OrderDto deliveryFailed(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/completed")
+    OrderDto completed(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/calculate/total")
+    OrderDto calculateTotal(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/calculate/delivery")
+    OrderDto calculateDelivery(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/assembly")
+    OrderDto assembly(@RequestBody UUID orderId);
+
+    @PostMapping("/api/v1/order/assembly/failed")
+    OrderDto assemblyFailed(@RequestBody UUID orderId);
+
+    @GetMapping("/api/v1/order/products")
+    Map<UUID, Long> getProducts(@RequestBody UUID orderId);
+}
