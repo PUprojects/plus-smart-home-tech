@@ -41,15 +41,14 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public BigDecimal getTotalCoast(OrderDto order) {
-        final double TAX_RATE = 1.1;
+        final BigDecimal TAX_RATE = BigDecimal.valueOf(1.1);
 
         if(order.deliveryId() == null || order.deliveryPrice() == null || order.products().isEmpty()) {
             throw new NotEnoughInfoInOrderToCalculateException("В заказе недостаточно данных для расчёта");
         }
 
-        double coast = getProductsCoastFromStore(order.products()) * TAX_RATE +
-            order.deliveryPrice().doubleValue();
-        return BigDecimal.valueOf(coast).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal coast = getProductsCoastFromStore(order.products()).multiply(TAX_RATE).add(order.deliveryPrice());
+        return coast.setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
@@ -62,8 +61,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public BigDecimal getProductsCoast(OrderDto order) {
-        return BigDecimal.valueOf(getProductsCoastFromStore(order.products()))
-                .setScale(2, RoundingMode.HALF_UP);
+        return getProductsCoastFromStore(order.products()).setScale(2, RoundingMode.HALF_UP);
     }
 
     @Override
@@ -74,11 +72,11 @@ public class PaymentServiceImpl implements PaymentService {
         paymentRepository.save(payment);
     }
 
-    private double getProductsCoastFromStore(Map<UUID, Long> products) {
-        final double[] coast = {0.0};
+    private BigDecimal getProductsCoastFromStore(Map<UUID, Long> products) {
+        final BigDecimal[] coast = {BigDecimal.valueOf(0.0)};
         products.forEach((productId, quantity) -> {
             ProductDto product = shoppingStore.getProduct(productId);
-            coast[0] += product.price().doubleValue() * quantity;
+            coast[0] = coast[0].add(product.price().multiply(BigDecimal.valueOf(quantity)));
         });
         return coast[0];
     }

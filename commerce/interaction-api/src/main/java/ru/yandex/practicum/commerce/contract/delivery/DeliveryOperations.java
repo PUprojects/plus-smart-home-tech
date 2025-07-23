@@ -1,5 +1,6 @@
 package ru.yandex.practicum.commerce.contract.delivery;
 
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -13,17 +14,17 @@ import java.util.UUID;
 @Validated
 public interface DeliveryOperations {
     @PutMapping("/api/v1/delivery")
-    DeliveryDto addDelivery(@RequestBody DeliveryDto newDelivery);
+    DeliveryDto addDelivery(@Valid @RequestBody DeliveryDto newDelivery);
 
     @PostMapping("/api/v1/delivery/successful")
-    void successfulDelivery(@RequestBody UUID deliveryId);
+    void successfulDelivery(@Valid @RequestBody UUID deliveryId);
 
     @PostMapping("/api/v1/delivery/picked")
-    void pickedDelivery(@RequestBody UUID deliveryId);
+    void pickedDelivery(@Valid @RequestBody UUID deliveryId);
 
     @PostMapping("/api/v1/delivery/failed")
-    void filedDelivery(@RequestBody UUID deliveryId);
+    void filedDelivery(@Valid @RequestBody UUID deliveryId);
 
     @PostMapping("/api/v1/delivery/cost")
-    BigDecimal getDeliveryCoast(@RequestBody OrderDto order);
+    BigDecimal getDeliveryCoast(@Valid @RequestBody OrderDto order);
 }

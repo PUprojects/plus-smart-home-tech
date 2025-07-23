@@ -1,5 +1,6 @@
 package ru.yandex.practicum.commerce.contract.payment;
 
+import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +13,13 @@ import java.util.UUID;
 @Validated
 public interface PaymentOperations {
     @PostMapping("/api/v1/payment")
-    PaymentDto doPayment(@RequestBody OrderDto order);
+    PaymentDto doPayment(@Valid @RequestBody OrderDto order);
 
     @PostMapping("/api/v1/payment/totalCost")
-    BigDecimal getTotalCoast(OrderDto order);
+    BigDecimal getTotalCoast(@Valid OrderDto order);
 
     @PostMapping("/api/v1/payment/refund")
-    void refoundPayment(@RequestBody UUID paymentId);
+    void refoundPayment(@Valid @RequestBody UUID paymentId);
 
     @PostMapping("/api/v1/payment/productCost")
     BigDecimal getProductsCoast(OrderDto order);

@@ -1,6 +1,7 @@
 package ru.yandex.practicum.commerce.contract.shopping.store;
 
 
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,13 +16,13 @@ public interface ShoppingStoreOperations {
     Page<ProductDto> getProducts(String category, @PageableDefault(sort = {"productName"}) Pageable pageable);
 
     @PutMapping("/api/v1/shopping-store")
-    ProductDto createNewProduct(@RequestBody ProductDto newProduct);
+    ProductDto createNewProduct(@Valid @RequestBody ProductDto newProduct);
 
     @PostMapping("/api/v1/shopping-store")
-    ProductDto updateProduct(@RequestBody ProductDto updatedProduct);
+    ProductDto updateProduct(@Valid @RequestBody ProductDto updatedProduct);
 
     @PostMapping("/api/v1/shopping-store/removeProductFromStore")
-    boolean removeProductFromStore(@RequestBody UUID productId);
+    boolean removeProductFromStore(@Valid @RequestBody UUID productId);
 
     @PostMapping("/api/v1/shopping-store/quantityState")
     boolean setProductQuantityState(@RequestParam UUID productId, @RequestParam String quantityState);
