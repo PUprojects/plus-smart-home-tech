@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS carts (
 );
 
 CREATE TABLE IF NOT EXISTS cart_products (
-    cart_id UUID,
+    cart_id UUID REFERENCES carts(shopping_cart_id),
     product_id UUID,
-    quantity INTEGER
+    quantity INTEGER,
+    PRIMARY KEY(cart_id, product_id)
 );

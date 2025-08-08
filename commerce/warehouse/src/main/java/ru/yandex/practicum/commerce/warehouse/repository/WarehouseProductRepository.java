@@ -7,5 +7,5 @@ import ru.yandex.practicum.commerce.warehouse.model.WarehouseProduct;
 import java.util.UUID;
 
 @Repository
-public interface WarehouseRepository extends JpaRepository<WarehouseProduct, UUID> {
+public interface WarehouseProductRepository extends JpaRepository<WarehouseProduct, UUID> {
 }
